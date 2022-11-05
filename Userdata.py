@@ -1,4 +1,5 @@
 import tkinter as tk
+import Data
 
 root = tk.Tk()
 root.geometry("800x600")
@@ -22,7 +23,7 @@ class User:
     self.password = password
     self.email = email
     self.inventory = {}
-    self.preferedCandy = [False, False, False]
+    self.preferredCandy = [False, False, False]
 
   def __str__(self):
     return f"{self.name} {self.password} {self.email}"
@@ -38,6 +39,7 @@ class User:
 
   def likedCandy(self,index):
     self.preferedCandy[index] = True
+
 
 def clearBoxes():
   nameVar.set('')
@@ -59,6 +61,7 @@ def createAccount():
     print("creating account #{}".format(len(users)))
     users.append(User(name, password,email))
     welcomeLabel.config(text = 'Account Created')
+    Data.
   else:
     welcomeLabel.config(text = 'Invalid input')
 
@@ -82,6 +85,11 @@ def signIn():
 
 def loadUsersPage():
   welcomeLabel.config(text='Welcome, {}'.format(users[currentUser].name))
+
+
+  def recordData(filename: str, data: dict()):
+    record = Data(filename)
+    record.write(data)
 
 
 
