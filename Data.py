@@ -1,5 +1,4 @@
 import json
-from Userdata import User
 from tokenizer import Tokenizer
 
 
@@ -9,9 +8,15 @@ class Data:
         self.filename = filename
         self.userbase = dict()  # initializes a class variable containing a list of User objects
 
+    def get_userbase(self) -> dict:
+        return self.userbase
+
     def read(self):
         with open(self.filename) as fp:
             self.userbase = json.load(fp)
+            # for i in data:
+
+            # self.userbase = json.load(fp)
             # data = json.load(fp)  # convert string to dictionary
             # self.userbase.update(data)  # adds the dictionary of person1(name: , password: , etc: etc.)
 
@@ -25,5 +30,8 @@ class Data:
             #     for user in self.userbase], out_fp)
             out_fp.close()
 
+
+def create_data_process(filename: str) -> Data:
+    return Data(filename)
 
 # class JsonEncoderWithIterablesDefault(json.JSONEncoder):

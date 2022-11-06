@@ -12,9 +12,9 @@ emailVar = tk.StringVar()
 welcomeLabel = tk.Label(root, text = 'Welcome')
 
 #dictionary key = name, value = Object
-users = {
-
-}
+userbase = Data(r'userbase.json')
+userbase.read()
+users = userbase.get_userbase()
 currentUser = 0
 candyTypes = ['Chocolate Bar', 'Lollipop', 'Mint']
 
@@ -60,6 +60,8 @@ def createAccount():
   if(valid):
     print("creating account #{}".format(len(users)))
     users[name] = User(name, password, email)
+
+    recordData(r'userbase.json', users)
     welcomeLabel.config(text = 'Account Created')
   else:
     welcomeLabel.config(text = 'Invalid input')
@@ -91,10 +93,6 @@ def loadUsersPage():
   welcomeLabel.config(text=welcomeText)
   candyListMenu = tk.OptionMenu(root, clicked, candyTypes)
   candyListMenu.grid(row = 1, column = 4)
-
-  def recordData(filename: str, data: dict()):
-    record = Data(filename)
-    record.write(data)
 
 
 
