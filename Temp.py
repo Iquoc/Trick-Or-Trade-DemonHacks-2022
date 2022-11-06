@@ -1,7 +1,8 @@
 import Data
+import Item
+import Listing
 
 
-#class for user data
 class User:
     def __init__(self, name, password, email):
         self.name = name
