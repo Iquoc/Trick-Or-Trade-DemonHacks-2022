@@ -19,9 +19,9 @@ class User:
         record.write(data)  # writes the data to be stored in the document
 
     def read_data(self, filename: str) -> dict:
-      data = Data.create_data_process(filename)  # creates a data object using the file to be read
-      data.read()  # reads the file
-      return data.userbase  # returns the dictionary stored in the file
+        data = Data.create_data_process(filename)  # creates a data object using the file to be read
+        data.read()  # reads the file
+        return data.userbase  # returns the dictionary stored in the file
 
     def set_candy(self, candy, amount):
         self.inventory[candy] = amount
