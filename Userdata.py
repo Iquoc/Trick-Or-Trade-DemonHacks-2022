@@ -10,11 +10,13 @@ nameVar = tk.StringVar()
 passwordVar = tk.StringVar()
 emailVar = tk.StringVar()
 welcomeLabel = tk.Label(root, text = 'Welcome')
-#use tree if big data set
-users = []
-currentUser = None
-candyTypes = ['Chocolate Bar', 'Lollipop', 'Mint']
 
+#dictionary key = name, value = Object
+users = {
+
+}
+currentUser = 0
+candyTypes = ['Chocolate Bar', 'Lollipop', 'Mint']
 
 #class for user data
 class User:
@@ -23,7 +25,7 @@ class User:
     self.password = password
     self.email = email
     self.inventory = {}
-    self.preferredCandy = [False, False, False]
+    self.preferedCandy = [False, False, False]
 
   def __str__(self):
     return f"{self.name} {self.password} {self.email}"
@@ -40,7 +42,6 @@ class User:
   def likedCandy(self,index):
     self.preferedCandy[index] = True
 
-
 def clearBoxes():
   nameVar.set('')
   passwordVar.set('')
@@ -54,14 +55,12 @@ def createAccount():
   valid = True
   if len(name) <= 0 or len(password) <= 0 or len(email) <= 0:
     valid = False
-  for i in users:
-    if i.name == name:
-      valid = False
+  if name in users:
+    valid = False
   if(valid):
     print("creating account #{}".format(len(users)))
-    users.append(User(name, password,email))
+    users[name] = User(name, password, email)
     welcomeLabel.config(text = 'Account Created')
-    Data.
   else:
     welcomeLabel.config(text = 'Invalid input')
 
@@ -71,21 +70,27 @@ def signIn():
   email = emailVar.get()
   clearBoxes()
   signedIn = False
-  for i in range(len(users)):
-    if users[i].name == name:
-      if(users[i].password == password):
-        currentUser = i
-        loadUsersPage()
-        signedIn = True
-        break
-      else:
-        welcomeLabel.config(text = 'Incorrect password')
-  if signedIn == False:
-    welcomeLabel.config(text = 'User not found')
+  global currentUser
+  if name not in users:
+    welcomeLabel.config(text='Incorrect username')
+  else:
+    if users[name].password == password:
+      currentUser = name
+      loadUsersPage()
+      signedIn = True
+    else:
+      welcomeLabel.config(text = 'Incorrect password')
 
+clicked = tk.StringVar()
+clicked.set('------')
+dropMenuLable = tk.Label( root , text = " " )
+def show():
+  dropMenuLable.config(text=clicked.get())
 def loadUsersPage():
-  welcomeLabel.config(text='Welcome, {}'.format(users[currentUser].name))
-
+  welcomeText = 'Welcome, ' + users[currentUser].name
+  welcomeLabel.config(text=welcomeText)
+  candyListMenu = tk.OptionMenu(root, clicked, candyTypes)
+  candyListMenu.grid(row = 1, column = 4)
 
   def recordData(filename: str, data: dict()):
     record = Data(filename)
